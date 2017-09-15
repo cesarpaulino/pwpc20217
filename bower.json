@@ -1,0 +1,28 @@
+{
+  "name": "picgam",
+  "description": "Aplicacion para compartir imagenes de eventos del ITGAM",
+  "main": "server.js",
+  "authors": [
+    "@CesarPaulino"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "mvc",
+    "node",
+    "itgam",
+    "pwpc2"
+  ],
+  "homepage": "#",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}

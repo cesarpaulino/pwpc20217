@@ -1,0 +1,6 @@
+# Igonarando los Modulos
+# de backend
+node_modules
+#Igonarando los
+#Modulos del Frotnend
+public/vendor
