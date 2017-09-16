@@ -4,11 +4,12 @@
   "description": "Aplicacion para compartir imagenes de eventos del ITGAM",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
-    "url": "#"
+    "url": "https://github.com/cesarpaulino/pwpc20217.git"
   },
   "keywords": [
     "mvc",
