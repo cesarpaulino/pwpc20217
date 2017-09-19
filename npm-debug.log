@@ -7,7 +7,7 @@
 6 silly lifecycle picgam@0.0.0~prestart: no script for prestart, continuing
 7 info lifecycle picgam@0.0.0~start: picgam@0.0.0
 8 verbose lifecycle picgam@0.0.0~start: unsafe-perm in lifecycle true
-9 verbose lifecycle picgam@0.0.0~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/cesar_paulino/Documents/ITGAM/9º Semestre/Desa_Web_Pila_Completa_II_Rivalcoba/pwpc20217/node_modules/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/Wireshark.app/Contents/MacOS
+9 verbose lifecycle picgam@0.0.0~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/cesar_paulino/Documents/ITGAM/9º Semestre/Desa_Web_Pila_Completa_II_Rivalcoba/pwpc20217/node_modules/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/Applications/Wireshark.app/Contents/MacOS
 10 verbose lifecycle picgam@0.0.0~start: CWD: /Users/cesar_paulino/Documents/ITGAM/9º Semestre/Desa_Web_Pila_Completa_II_Rivalcoba/pwpc20217
 11 silly lifecycle picgam@0.0.0~start: Args: [ '-c', 'node server.js' ]
 12 silly lifecycle picgam@0.0.0~start: Returned: code: 1  signal: null
