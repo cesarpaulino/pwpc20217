@@ -19,9 +19,9 @@ app.set('views', path.join(__dirname,'views'));
 app = config(app);
 
 //creando una ruta de prueba 
-app.get('/', (req, res)=>{
-    res.send('Hola Pila Completa 2, Viva Javascript');
-});
+//app.get('/', (req, res)=>{
+    //res.send('Hola Pila Completa 2, Viva Javascript');
+//});
 
 //Consultando las variables de entorno
 //de la aplicacion

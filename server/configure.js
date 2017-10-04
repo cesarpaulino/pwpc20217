@@ -24,6 +24,9 @@ module.exports = function(app){
     app.use(methodOverride());
     app.use(cookieParser('algun-valor-secreto-aquí'));
 
+    //Asignar las rutas a la aplicacion
+    app = routes(app);
+
     //Configurar las rutas de archivos estaticos
     app.use('/public/',
     express.static(path.join(__dirname, '../public')));
