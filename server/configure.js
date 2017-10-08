@@ -15,8 +15,26 @@ var path = require('path'),
 //Cargando las rutas de la aplicacion
 var routes = require('./routes');
 
-
 module.exports = function(app){
+    //Configurando el Motor de Plantillas Hanlebars Template Engine
+    //1. Cargar y configurar el motor de platilla en la aplicacion express
+    app.engine('.hbs', exphdb.create({
+        defaultLayout : 'main', //Platilla por defecto
+        extname : 'hbs', // Extencion de las vistas
+        layoutsDir: path.join(app.get('views'),
+        'layouts'),
+        partialsDir: [path.join(app.get('views'),
+        'partials')],
+        helpers : {
+            timeago : function(timestamp){
+                return moment(timestamp).startof
+            ('minutes').fromNow();
+                //momnet 
+            }
+        }
+    }).engine);
+
+    //Establecer a handlebars como el motor de la plantilla de trabajo
     //Agregando los middlewares a la aplicaciones
     app.use(morgan('dev'));
     app.use(bodyParser.urlencoded({'extended': true}));
