@@ -13,7 +13,7 @@ app.set('port', process.env.PORT || 3000);
 app.set('ip', process.env.IP || "0.0.0.0");
 
 //Configuraciones especiales
-app.set('views', path.join(__dirname,'views'));
+app.set('views', path.join(__dirname + '/views'));
 
 //Aplicando configuraciones generales 
 app = config(app);

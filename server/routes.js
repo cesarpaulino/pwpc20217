@@ -6,8 +6,12 @@ var homeController = require('../controllers/home'),
     imageController = require('../controllers/image');
 
 module.exports = function(app){
-    //TODO: agregar rutas a la aplicacion
+    //TODO:agregar rutas a la aplicacion
+    //contenedor de rutas
+    //router--> verbo---> que ejecutar
+    //:image --> es un parametro que funciona para elegir el acction method 
     router.get('/', homeController.index);
+    //shift + alt mas hacia abajo
     router.get('/index', homeController.index);
     router.get('/images/index/:image_id',imageController.index);
     router.post('/images/create', imageController.create);
@@ -16,4 +20,4 @@ module.exports = function(app){
     //Agregar el contenedor de rutas a nuestras aplicacion
     app.use(router);
     return app;
-}
+}   

@@ -1,5 +1,5 @@
-//Cargando Dependencias importantes de la aplicacion
-
+//exportar funcionalidad
+//cargando dependencias importantes de la app
 var path = require('path'),
     exphdb = require('express-handlebars'),
     express = require('express'),
@@ -11,7 +11,7 @@ var path = require('path'),
     moment = require('moment')
     multer = require('multer');
 
-    //verbos de aplicacion method
+//verbos de aplicacion method
 //Cargando las rutas de la aplicacion
 var routes = require('./routes');
 
@@ -20,21 +20,20 @@ module.exports = function(app){
     //1. Cargar y configurar el motor de platilla en la aplicacion express
     app.engine('.hbs', exphdb.create({
         defaultLayout : 'main', //Platilla por defecto
-        extname : 'hbs', // Extencion de las vistas
-        layoutsDir: path.join(app.get('views'),
-        'layouts'),
-        partialsDir: [path.join(app.get('views'),
-        'partials')],
+        extname :'.hbs', // Extencion de las vistas
+        layoutsDir: path.join(app.get('views'),'layouts'),
+        partialsDir: [path.join(app.get('views'),'partials')],
+        // Adding a Helper
         helpers : {
-            timeago : function(timestamp){
-                return moment(timestamp).startof
-            ('minutes').fromNow();
+            timeago: function(timestamp){
+                return moment(timestamp).startOf('minutes').fromNow();
                 //momnet 
             }
         }
     }).engine);
-
-    //Establecer a handlebars como el motor de la plantilla de trabajo
+    //2. Establecer a handlebars como el motor de la plantilla de trabajo
+    app.set('view engine','.hbs');
+    //pendiente agregar el codigo que configura a app
     //Agregando los middlewares a la aplicaciones
     app.use(morgan('dev'));
     app.use(bodyParser.urlencoded({'extended': true}));
@@ -46,13 +45,11 @@ module.exports = function(app){
     app = routes(app);
 
     //Configurar las rutas de archivos estaticos
-    app.use('/public/',
-    express.static(path.join(__dirname, '../public')));
+    app.use('/public/', express.static(path.join(__dirname, '../public')));
 
     //SI LA APLICACION ESTA EN MODO DE DESARROLLO SE USARA ERRORHANDLER
     if(app.get('evn') == 'development'){
         app.use(errorHandler());
     }
-
     return app;
 }

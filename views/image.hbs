@@ -1,41 +1,50 @@
+<!--div.panel.panel-primary-->
 <div class="panel panel-primary">
-    <!-- HEADING -->
-    <div class="panel panel-heading">
-        <h2 class="panel-title">
+    <!-- HEADING-->
+    <!--div.panel-heading-->
+    <div class="panel-heading">
+        <!--div.panel-title-->
+        <div class="panel-title">
             {{image.title}}
-        </h2>
-    </div>
-    <!-- BODY -->
-    <div class="panel-body">
-        <p>{{image.description}}</p>
-        <div class="col-md-12 text-center">
-        <img src="/public/upload/{{image.filename}}" class="img-thumbnail" alt="{{image.title}}">
-        </div> 
-    </div>
-    <!-- FOOTER -->
-    <div class="panel-footer">
-        <div class="rows">
-            <div class="col-md-8">
-                <button class="btn btn-success" id="btn-like" data-id="{{image.uniqueId}}">
-                    <i class="fa fa-heart"> Like</i>
-                </button>
-                <strong class="likes-count">
-                    {{image.likes}}
-                </strong>&nbsp;-&nbsp;
-                <i class="fa fa-eye"></i>
-                <strong>
-                    {{image.views}}
-                </strong>&nbsp;-&nbsp;Publicacion:
-                <em class="text-muted">
-                    <!-- Se usa un Helper method de handlebars propio para calcular la antiguedad de la publicacion -->
-                    {{timeago image.timestamp}}
-                </em>    
-            </div>
         </div>
     </div>
+    <!-- BODY-->
+    <!--div.panel-body-->
+    <div class="panel-body">
+        <p>{{image.description}}</p>
+        <!--div.col-md-12.text-center-->
+        <div class="col-md-12 text-center">
+            <img src="/public/upload({{image.filename}}
+            alt={{image.title}}" class="img-thumbnail">
+        </div>
+    </div>
+    <!-- FOOTER-->
+    <!--div.panel-footer-->
+    <div class="panel-footer">
+        <!--div.col-md-8-->
+        <button class="btn btn-success" id="btn-like" data-id="{{image.uniqueId}}">
+
+            <i class="fa fa-heart"> Like</i>
+
+        </button>
+        <!--strong.likes-count-->
+        <strong class="likes-count">
+            {{image.likes}}
+        </strong>&nbsp; - &nbsp;
+        <i class="fa fa-eye"></i>
+        <strong>
+            {{image.views}}
+        </strong>
+        &nbsp;-&nbsp;Publicación:
+        <em class="text-muted">
+            <!-- See usa un helper method de hbs propio para clacular la antiguedad
+            de la publicación-->
+            {{timeago image.timestamp}}
+        </em>
+    </div>
 </div>
-<div class="pane panel-default">
-    <!-- HEADING -->
+<div class="panel panel-default">
+    <!--HEADING-->
     <div class="panel-heading">
         <div class="row">
             <div class="col-md-8">
@@ -43,63 +52,70 @@
                     Comentarios:
                 </strong>
             </div>
-            <div class="col-md-4 text-right">
-                <button class="btn btn-default btn-sm" id="btn-comment" data-id="{{image.uniqueId}}">
+            <div class="col-md-4 text-rigth">
+                <button class="btn btn-default btn-sm" id="btn-comment" data-id={{image.uniqueId}}>
                     <i class="fa fa-comments-o">
-                        Publicar Comentario...
+                        Publicar Comentario....
                     </i>
                 </button>
             </div>
         </div>
     </div>
-    <div class="panel panel-body">
+    <!-- Body-->
+    <div class="panel-body">
         <blockquote id="post-comment">
             <div class="row">
-                <form method="POST"action="/images/comment/{{image.uniqueId}}">
-                <!-- Campo de captura de nombre -->
-                <div class="form-group col-sm-12">
-                    <label for="name" class="col-sm-2 control-label">
-                        Nombre:
-                    </label>
-                    <div class="col-sm-10">
-                        <input name="name" type="text" class="form-control">
+                <!-- Form -->
+                <form method="POST" action="/images/comment/{{image.uniqueId}}">
+                    <!--   P1-->
+                    <div class="form-group col-sm-12">
+                        <label for="name" class="col-sm-2 control-label">
+                            Nombre:
+                        </label>
+                        <div class="col-sm-10">
+                            <input name="name" type="text" class="form-control">
+                        </div>
                     </div>
-                </div>
-                <!-- EMAIL -->
-                <div class="form-group col-sm-12">
-                    <label class="col-sm-2 control-label" for="email">
-                        Email: 
-                    </label>
-                    <div class="col-sm-10"><input name="name" type="text" class="form-control">
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-2 control-label" for="email">
+                            Email:
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="text" name="email" class="form-control">
+                        </div>
                     </div>
-                </div>                
-                <!-- COMENTARIOS -->
-                <div class="form-group col-sm-12">
-                    <label class="col-sm-2 control-label" for="comment">
-                        Comentario: 
-                    </label>
-                    <div class="col-sm-10"><textarea name="comment" id="comment" rows="2" class="form-control"></textarea>
+                    <!--coment-->
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-2 control-label" for="comment">
+                            Comentario:
+                        </label>
+                        <div class="col-sm-10">
+                            <textarea id="comment" rows="2" name="email" class="form-control">
+                        </textarea>
+                        </div>
                     </div>
-                </div>
-                <!-- Bontoncin -->
-                <div class="form-group col-sm-12">
-                    <div class="col-sm-12 text-right">
-                        <button type="submit" id="comment-btn" class="btn btn-success">
-                            <i class="fa fa-comment">
-                                Publicar
-                            </i>
-                        </button>
+                    <!-- boton-->
+                    <div class="form-group col-sm-12">
+                        <div class="col-sm-12 text-right">
+                            <button type="submit" id="comment-btn" class="btn btn-success">
+
+                                <i class="fa fa-comment">
+                                    Publicar
+                                </i>
+
+                            </button>
+                        </div>
                     </div>
-                </div>
                 </form>
             </div>
         </blockquote>
-        <!-- Listado de todos los comenatrios realizados a una imagen -->
+        <!--Listado-->
         <ul class="media-list">
             {{#each comments}}
+            <!-- Avatar del usuario-->
             <li class="media">
                 <a href="#" class="pull-left">
-                    <img src="https://www.gravatar.com/avatar{{gravatar}}" alt="imagen avatar" class="media-object">
+                    <img src="http://wwww.gravatar.com/avatar{{gravatar}}" alt="imagen avatar" class="media-object">
                 </a>
                 <div class="media-body">
                     {{comment}}

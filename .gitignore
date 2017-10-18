@@ -1,6 +1,11 @@
-# Igonarando los Modulos
-# de backend
+#ignorando los modulos de
+#backend
 node_modules
-#Igonarando los
-#Modulos del Frotnend
+#ignorando los
+#modulos del Fronted
+public/vendor#ignorando los modulos de
+#backend
+node_modules
+#ignorando los
+#modulos del Fronted
 public/vendor

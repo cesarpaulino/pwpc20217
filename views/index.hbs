@@ -1,5 +1,5 @@
- <!--//html5 enter-->
- <!--div.panel.panel-primary>div.panel-heading>h3.panel-tilte{cargar una Imagen}
+<!--//html5 enter-->
+<!--div.panel.panel-primary>div.panel-heading>h3.panel-tilte{cargar una Imagen}
 ctl + espacio // tab-->
 <div class="panel panel-primary">
     <div class="panel-heading">
@@ -10,64 +10,49 @@ ctl + espacio // tab-->
         <!--div.panel-body.form-horizontal -->
         <div class="panel-body form-horizontal">
             <!--div.from-group.col-md-12-->
-            <div class="from-group col-md-12">
+            <div class="form-group col-md-12">
                 <!--label.col-sm-2.control-label-->
                 <!--input para cargar Archivo-->
                 <label for="file" class="col-md-2 control-label">
                     Seleccionar Archivo:
                 </label>
                 <!--div-col-md-10>imput.form-control-->
-                <div class ="col-md-10">
-                    <input type="file"
-                    name="file"
-                    id="file"
-                    class="form-control">
+                <div class="col-md-10">
+                    <input type="file" name="file" id="file" class="form-control">
                 </div>
-
             </div>
             <!--conincidencia de quien lo contienen y los elementos dentro "md"-->
-            <div class="from-group col-md-12">
+            <div class="form-group col-md-12">
                 <!--input para asignar nombre a imagen-->
                 <label for="title" class="col-md-2 control-label">
                     Título:
                 </label>
                 <!--div-col-md-10>imput.form-control-->
-                <div class ="col-md-10">
-                    <input type="text"
-                    name="title"
-                    id="title"
-                    class="form-control">
+                <div class="col-md-10">
+                    <input type="text" name="title" id="title" class="form-control">
                 </div>
             </div>
-            <div class="from-group col-md-12">
+            <div class="form-group col-md-12">
                 <!--input para asignar descripcion de  la imagen-->
                 <label for="description" class="col-md-2 control-label">
                     Descripción:
                 </label>
                 <!--div-col-md-10>imput.form-control-->
-                <div class ="col-md-10">
-                    <textarea 
-                        class="from-control"
-                        name="description"
-                        id="description" 
-                        cols="30" 
-                        rows="2">
+                <div class="col-md-10">
+                    <textarea class="form-control" name="description" id="description" cols="30" rows="2">
                     </textarea>
                 </div>
             </div>
-            <div class="from-group col-md-12">
+            <div class="form-group col-md-12">
                 <!--div.col-md-12.text-right -->
                 <div class="col-md-12 text-right">
-                    <button 
-                    class="btn btn-success"
-                    type="submit"
-                    id="login-btn">
+                    <button class="btn btn-success" type="submit" id="login-btn">
                         <i class="fa fa-cloud-upload"></i>
-                        Cargar Imágen   
+                        Cargar Imágen
                     </button>
                 </div>
             </div>
-        </div>  
+        </div>
     </form>
 </div>
 <!--div.panel.panel-default>div.panel-heading>h3.panel-title{Imagenes Recientes} -->
@@ -83,10 +68,9 @@ ctl + espacio // tab-->
         <!--div.col-md-4.text-center-->
         <div class="col-md-4 text-center" style="padding-bottom: 1em;">
             <a href="/images/{{uniqueId}}">
-                <img src="/public/upload/{{filename}}" alt="{{title}}" 
-                style="width: 175px; height: 175px" class="img-thumbnail">
+                <img src="/public/upload/{{filename}}" alt="{{title}}" style="width: 175px; height: 175px" class="img-thumbnail">
             </a>
         </div>
         {{/each}}
     </div>
-</div> 
+</div>
