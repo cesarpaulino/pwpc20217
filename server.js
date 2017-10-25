@@ -11,6 +11,10 @@ var app = express();
 //Estableciones una variables de entorno 
 app.set('port', process.env.PORT || 3000);
 app.set('ip', process.env.IP || "0.0.0.0");
+//Estableciendo un modo de dependencias
+//locales o de un CDN (Content Delivery Network)
+//depmode = ['local' || ['cdn']]          'main'
+app.set('depmode', process.env.DEPMODE || 'cdn')
 
 //Configuraciones especiales
 app.set('views', path.join(__dirname + '/views'));
@@ -20,7 +24,7 @@ app = config(app);
 
 //creando una ruta de prueba 
 //app.get('/', (req, res)=>{
-    //res.send('Hola Pila Completa 2, Viva Javascript');
+//res.send('Hola Pila Completa 2, Viva Javascript');
 //});
 
 //Consultando las variables de entorno
@@ -29,9 +33,9 @@ const IP = app.get('ip');
 const PORT = app.get('port');
 
 //Iniciando el Servidor
-app.listen(PORT, IP, (err)=>{
-    if(err){
-    console.log(`> error en el servidro.js ln32: ${err}`);
-}
+app.listen(PORT, IP, (err) => {
+    if (err) {
+        console.log(`> error en el servidro.js ln32: ${err}`);
+    }
     console.log(`> Server listening @ http://${IP}:${PORT}`);
 });

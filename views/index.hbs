@@ -14,7 +14,7 @@ ctl + espacio // tab-->
                 <!--label.col-sm-2.control-label-->
                 <!--input para cargar Archivo-->
                 <label for="file" class="col-md-2 control-label">
-                    Seleccionar Archivo:
+                    Buscar:
                 </label>
                 <!--div-col-md-10>imput.form-control-->
                 <div class="col-md-10">
@@ -67,7 +67,7 @@ ctl + espacio // tab-->
         {{#each images}}
         <!--div.col-md-4.text-center-->
         <div class="col-md-4 text-center" style="padding-bottom: 1em;">
-            <a href="/images/{{uniqueId}}">
+            <a href="/images/index/{{uniqueId}}">
                 <img src="/public/upload/{{filename}}" alt="{{title}}" style="width: 175px; height: 175px" class="img-thumbnail">
             </a>
         </div>

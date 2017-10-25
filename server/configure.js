@@ -18,8 +18,12 @@ var routes = require('./routes');
 module.exports = function(app){
     //Configurando el Motor de Plantillas Hanlebars Template Engine
     //1. Cargar y configurar el motor de platilla en la aplicacion express
+    //esta linea ayuda a decidir si usare CDN para cargar las dependecias front-end
+    var mainLayout = app.get('depmode') === 'local' ? "main-local" : "main"
+    //console.log(`> Estrategia: ${app.get('depmode')}`);
+    //console.log(`> Tipo Layout: ${mainLayout}`);
     app.engine('.hbs', exphdb.create({
-        defaultLayout : 'main', //Platilla por defecto
+        defaultLayout : mainLayout, //Platilla por defecto
         extname :'.hbs', // Extencion de las vistas
         layoutsDir: path.join(app.get('views'),'layouts'),
         partialsDir: [path.join(app.get('views'),'partials')],
@@ -43,6 +47,8 @@ module.exports = function(app){
 
     //Asignar las rutas a la aplicacion
     app = routes(app);
+
+    
 
     //Configurar las rutas de archivos estaticos
     app.use('/public/', express.static(path.join(__dirname, '../public')));
