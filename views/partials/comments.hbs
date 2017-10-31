@@ -1,27 +1,31 @@
 <div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">
-      Ultimos comentarios
-    </h3>
-  </div>
-  <div class="panel-body">
-    <ul class="media-list">
-      {{#each sidebars.comments}}
-      <li class="media">
-        <a href="/images/{{image.uniqueId}}"
-            class="pull-left">
-            <img
-              src="/public/upload/{{image.filename}}"
-              alt="Image"
-              class="media-object" width="45" height="45">            
-            </a>
-            <div class="media-body">
-              {{comment}} <br>
-              <strong class="media-heading">{{name}}</strong>
-              <small class="text-muted">{{timeago timestamp}}</small>
-            </div>
-      </li>
-      {{/each}}
-    </ul>
-  </div>
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            Ultimos Comentarios
+        </h3>
+    </div>
+    <div class="panel-body">
+        <ul class="media-list">
+            {{#each sidebar.comments}}
+            <li class="media"> 
+                <a href="/images/{{image.uniqueId}}"
+                class="pull-left">
+                    {{!-- //src="/public/upload/{{image.filename}}" --}}
+                    <img  
+                    src="http://www.gravatar.com/avatar/{{gravatar}}"
+                    alt="Imagen" 
+                    class="media-object"
+                    width="45" height="45">
+                </a>
+                <div class="media-body">
+                    {{comment}} <br>
+                    <strong class="media-heading">{{name}}</strong>
+                    <small class="text-muted">
+                        {{timeago timestamp}}
+                    </small>
+                </div>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
 </div>

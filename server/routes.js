@@ -10,9 +10,8 @@ module.exports = function(app){
     //contenedor de rutas
     //router--> verbo---> que ejecutar
     //:image --> es un parametro que funciona para elegir el acction method 
-    router.get(['/','/home','/home/index'], homeController.index);
-    //shift + alt mas hacia abajo
-    router.get('/index', homeController.index);
+    router.get('/', homeController.index);
+    router.get('/home/index', homeController.index);
     router.get('/images/index/:image_id',imageController.index);
     router.post('/images/create', imageController.create);
     router.post('/images/like/:image_id',imageController.like);
@@ -20,4 +19,4 @@ module.exports = function(app){
     //Agregar el contenedor de rutas a nuestras aplicacion
     app.use(router);
     return app;
-}   
+};

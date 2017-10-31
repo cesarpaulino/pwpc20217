@@ -9,3 +9,4 @@ node_modules
 #ignorando los
 #modulos del Fronted
 public/vendor
+#ingorar los archivos del log

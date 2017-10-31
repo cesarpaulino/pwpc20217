@@ -1,4 +1,9 @@
-var md5 = require('md5');
+//Cragando Dependencias
+var md5 = require('md5'),
+    fs = require('fs'),
+    path = require('path'),
+    siderbar= require('../helpers/sidebar');
+
 module.exports = {
     //Action Methods
     index: (req, res)=>{
@@ -20,7 +25,6 @@ module.exports = {
                     email: 'cesar_paulino@icloud.com',
                     name: "Cesar Paulino",
                     gravatar: md5("cesar_paulino@icloud.com"),
-                    //md5(cesar_paulino@icloud.com)
                     comment: "Asi me pondre cuando pase PCII",
                     timestamp: Date.now()
                 },
@@ -37,18 +41,74 @@ module.exports = {
                     email: 'cesar_paulino@icloud.com',
                     name: "Cesar Paulino",
                     gravatar: md5("cesar_paulino@icloud.com"),
-                    //md5(cesar_paulino@icloud.com)
                     comment: "Asi me pondre cuando sea Papa",
                     timestamp: Date.now()
                 }
             ]
         };
-        res.render('image', viewModel);
+       // res.render('image', viewModel);
+       //invocamos al helper de sidebar
+       //y posteriormente
+       //mandamos a renderizar la vista
+       siderbar(viewModel,(vm)=>{
+           res.render("image",vm);
+       });
     },
     create: (req, res)=>{
-        res.end(`Se accede al controladro Image y se ejecuta el action method 
-        "/create/""`);
-    },
+        //Creando la funcion que salva la imagen en disco 
+        var saveImage = ()=>{
+            //Crear un dictionario de caracteres validos
+            var dictionary ="qwertyuiopasdfghjklñzxcvbnm1234567890";
+            //Ruta final de la imagen cargada
+            var imgUrl = "";
+            //armando el nombre tomando 6 caracteres de mi diccionario
+            for (var index = 0; index < 6; index++) {
+                imgUrl += dictionary.charAt(
+                    Math.floor(Math.random() * dictionary.length)
+                );
+            }
+            //Obteniendo la ruta del archivo cargado por el usuario
+            var temPath = 
+                req.files[0].path;
+            //Averiguar la extencion del archivo cargado
+            var ext = 
+                path.extname(req.files[0].originalname).toLowerCase();
+            //Crear la ruta del destino final de la imagen cargada 
+            var targetPath = 
+                path.resolve('./public/upload/' + imgUrl + ext);
+            //Agregar un filtro de extenciones 
+            if(ext ==".png" || 
+            ext == ".jpg" || 
+            ext == ".gif" || 
+            ext ==".jpeg"){
+                //La imagen tiene extencion valida guardarla en la ruta final 
+                fs.rename(temPath, targetPath, (err)=>{
+                    //hubo error al cargar
+                    if(err){
+                        console.log("> Error al Guardar imagen....");
+                        throw err;
+                    }
+                    //No hubo error al cargar
+                    res.redirect(`/images/index/${imgUrl}`);
+                });
+            }else{
+                //Se detecta un archivo invalido
+                fs.unlink(temPath,()=>{
+                    if(err){
+                    console.log("> Error al borrar archivo invalido....");
+                    throw err;
+                }
+                //Si se borro el archivo invalido
+                res.status(500).json({
+                    error: "Solo se permite cargar archivo validos."
+                });
+            });
+        }
+    }
+    //Ejecutando la funcion de salvar la imagen
+    saveImage();
+},
+
     like: (req, res)=>{
         res.end(`Se accede al controlador Image y se ejecuta
         el accion method "like" con el siguiente 

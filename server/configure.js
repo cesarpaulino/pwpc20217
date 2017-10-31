@@ -45,6 +45,13 @@ module.exports = function(app){
     app.use(methodOverride());
     app.use(cookieParser('algun-valor-secreto-aquí'));
 
+    //Habilitando a la aplicacion para recin¡vir archivos desde formularios
+    //mediante la encriptacion multipar/form-date
+    app.use(multer({
+        dest: path.join(__dirname, '../public/upload/temp')
+    }).any());
+
+
     //Asignar las rutas a la aplicacion
     app = routes(app);
 

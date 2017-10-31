@@ -1,19 +1,24 @@
 <div class="panel panel-default">
-  <div class"panel-heading">
-    <h3 class="panel-title">Mas Populares</h3>
-  </div>
-  <!-- Body -->
-  <div class="panel-body">
-    {{#each sidebar.popular}}
-    <div class="col-md-4 text-center" style="padding-bottom: .5em;">
-      <a href="/images/{{uniqueId}}">
-          <img
-            src="/public/upload/{{filename}}"
-            alt="Imagen"
-            class="img-thumbnail"
-            style="width: 75px; height: 75px;">
-      </a>
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            Mas Populares
+        </h3>
     </div>
-    {{/each}}
-  </div>
+    <!-- Body -->
+    <div class="panel-body">
+        <!-- Sentencia de iteracion de HBS -->
+        {{#each sidebar.popular}}
+        <div 
+        class="col-md-4 text-center" 
+        style="padding-bottom: 0.5em;">
+            <a href="/images/index/{{uniqueId}}">
+                <img 
+                src="/public/upload/{{filename}}"
+                alt="Imagen de Momento"
+                class="img-thumbnail"
+                style="width:75px; height: 75px;">
+            </a>
+        </div>
+        {{/each}}
+    </div>
 </div>

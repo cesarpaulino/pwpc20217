@@ -1,122 +1,149 @@
-<!--div.panel.panel-primary-->
+<!-- PANEL PRIMARIO -->
 <div class="panel panel-primary">
-    <!-- HEADING-->
-    <!--div.panel-heading-->
+    <!-- HEADING -->
     <div class="panel-heading">
-        <!--div.panel-title-->
-        <div class="panel-title">
-            {{image.title}}
-        </div>
+        <h2 class="panel-title">
+             {{image.title}}
+        </h2>     
     </div>
-    <!-- BODY-->
-    <!--div.panel-body-->
-    <!--  -->
+    <!-- BODY -->
     <div class="panel-body">
         <p>{{image.description}}</p>
-        <!--div.col-md-12.text-center-->
         <div class="col-md-12 text-center">
-            <img src="/public/upload/{{image.filename}}"
-            alt={{image.title}}" class="img-thumbnail">
+            <img 
+            class="img-thumbnail"
+            src="/public/upload/{{image.filename}}" 
+            alt="Imagen">
         </div>
     </div>
-    <!-- FOOTER-->
-    <!--div.panel-footer-->
+    <!-- FOOTER -->
     <div class="panel-footer">
-        <!--div.col-md-8-->
-        <button class="btn btn-success" id="btn-like" data-id="{{image.uniqueId}}">
-
-            <i class="fa fa-heart"> Like</i>
-
-        </button>
-        <!--strong.likes-count-->
-        <strong class="likes-count">
-            {{image.likes}}
-        </strong>&nbsp; - &nbsp;
-        <i class="fa fa-eye"></i>
-        <strong>
-            {{image.views}}
-        </strong>
-        &nbsp;-&nbsp;Publicación:
-        <em class="text-muted">
-            <!-- See usa un helper method de hbs propio para clacular la antiguedad
-            de la publicación-->
-            {{timeago image.timestamp}}
-        </em>
+        <div class="row">
+            <div class="col-md-8">
+                <button class="btn btn-success" 
+                id="btn-like" 
+                data-id="{{image.uniqueId}}">
+                    <i class="fa fa-heart"> 
+                        like
+                    </i>
+                </button>
+                <strong class="likes-count">
+                    {{image.likes}}
+                </strong>&nbsp;-&nbsp; 
+                <i class="fa fa-eye"></i>
+                <strong>{{image.views}}</strong>
+                &nbsp;-&nbsp;Posted: 
+                <em class="text-muted">
+                    {{timeago image.timestamp}}
+                </em>
+            </div>
+        </div>
     </div>
 </div>
+<!-- SECCION -->
 <div class="panel panel-default">
-    <!--HEADING-->
+    <!-- HEADING -->
     <div class="panel-heading">
         <div class="row">
             <div class="col-md-8">
                 <strong class="panel-title">
-                    Comentarios:
+                    Comentarios
                 </strong>
             </div>
-            <div class="col-md-4 text-rigth">
-                <button class="btn btn-default btn-sm" id="btn-comment" data-id={{image.uniqueId}}>
+            <div class="col-md-4 text-right">
+                <button 
+                class="btn btn-default btn-sm" 
+                id="btn-comment" 
+                data-id="{{image.uniqueId}}">
                     <i class="fa fa-comments-o">
-                        Publicar Comentario....
+                        Publicar Comentario...
                     </i>
                 </button>
             </div>
         </div>
     </div>
-    <!-- Body-->
+    <!-- BODY -->
     <div class="panel-body">
         <blockquote id="post-comment">
             <div class="row">
-                <!-- Form -->
-                <form method="POST" action="/images/comment/{{image.uniqueId}}">
-                    <!--   P1-->
-                    <div class="form-group col-sm-12">
-                        <label for="name" class="col-sm-2 control-label">
+                <!-- FORM -->
+                <form 
+                method="POST"
+                action="/images/comment/{{image.uniqueId}}"
+                >
+                    <!-- P1 -->
+                    <div 
+                    class="form-group col-sm-12">
+                        <label 
+                        for="name" 
+                        class="col-sm-2 control-label">
                             Nombre:
                         </label>
-                        <div class="col-sm-10">
-                            <input name="name" type="text" class="form-control">
+                        <div 
+                        class="col-sm-10">
+                            <input 
+                            class="form-control" 
+                            type="text" 
+                            name="name">
                         </div>
                     </div>
+                    <!-- P2 -->
+                    <div 
+                    class="form-group col-sm-12">
+                        <label 
+                        for="email" 
+                        class="col-sm-2 control-label">
+                            E-Mail:
+                        </label>
+                        <div 
+                        class="col-sm-10">
+                            <input 
+                            class="form-control" 
+                            type="text" 
+                            name="email">
+                        </div>
+                    </div>
+                    <!-- P3 -->
                     <div class="form-group col-sm-12">
-                        <label class="col-sm-2 control-label" for="email">
-                            Email:
+                        <label 
+                        for="comment" 
+                        class="col-sm-2 control-label">
+                            Comentar:
                         </label>
                         <div class="col-sm-10">
-                            <input type="text" name="email" class="form-control">
+                            <textarea 
+                            class="form-control" 
+                            id=""
+                            rows="2"
+                            name="comment">
+                            </textarea>
                         </div>
                     </div>
-                    <!--coment-->
-                    <div class="form-group col-sm-12">
-                        <label class="col-sm-2 control-label" for="comment">
-                            Comentario:
-                        </label>
-                        <div class="col-sm-10">
-                            <textarea id="comment" rows="2" name="email" class="form-control">
-                        </textarea>
-                        </div>
-                    </div>
-                    <!-- boton-->
-                    <div class="form-group col-sm-12">
+                    <!-- P4 -->
+                    <div 
+                    class="form-group col-sm-12">
                         <div class="col-sm-12 text-right">
-                            <button type="submit" id="comment-btn" class="btn btn-success">
-
-                                <i class="fa fa-comment">
-                                    Publicar
-                                </i>
-
+                            <button class="btn btn-success"
+                            type="submit"
+                            id="comment-btn">
+                                <i class="fa fa-comments"></i>
+                                Publicar
                             </button>
                         </div>
                     </div>
                 </form>
             </div>
         </blockquote>
-        <!--Listado-->
         <ul class="media-list">
             {{#each comments}}
-            <!-- Avatar del usuario-->
             <li class="media">
-                <a href="#" class="pull-left">
-                    <img src="https://s.gravatar.com/avatar/…ñ.{{gravatar}}" alt="imagen avatar" class="media-object">
+                <a href="#" 
+                class="pull-left">
+                    <img 
+                        class="media-object"
+                        src="http://www.gravatar.com/avatar/{{gravatar}}" 
+                        alt="avatar image"
+                    >
                 </a>
                 <div class="media-body">
                     {{comment}}
