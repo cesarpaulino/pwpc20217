@@ -2,7 +2,8 @@
 var md5 = require('md5'),
     fs = require('fs'),
     path = require('path'),
-    siderbar= require('../helpers/sidebar');
+    siderbar= require('../helpers/sidebar'),
+    likeCount = 12;
 
 module.exports = {
     //Action Methods
@@ -110,9 +111,10 @@ module.exports = {
 },
 
     like: (req, res)=>{
-        res.end(`Se accede al controlador Image y se ejecuta
-        el accion method "like" con el siguiente 
-        parametro -->${req.params.image_id}`);
+        res.json({
+            //preincremento ++ al like
+            likes: ++likeCount
+        });
     },
     comment: (req, res)=>{
         res.end(`Se accede al controlador Image y se ejecuta el accion method 
