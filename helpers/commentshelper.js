@@ -1,35 +1,30 @@
-var md5 = require('md5');
-module.exports ={
-    newest:function(){
-        //obteniendo un arreglo
-        //con los comentarios
-        //mas pupulares
-        var comments=[
-            {
-                image_id: 1,
-                email: 'cesar_paulino@icloud.com',
-                name: "Cesar Paulino",
-                gravatar: md5("cesar_paulino@icloud.com"),
-                comment: "Asi me pondre cuando pase PCII",
-                timestamp: Date.now()
-            },
-            {
-                image_id: 1,
-                email: 'cesar_paulino@icloud.com',
-                name: "Cesar Paulino",
-                gravatar: "eef5ce9485974e743540b05224686ba5",
-                comment: "Asi me pondre cuando nos acepten el Proyecto de Mundo",
-                timestamp: Date.now()
-            },
-            {
-                image_id: 1,
-                email: 'cesar_paulino@icloud.com',
-                name: "Cesar Paulino",
-                gravatar: md5("cesar_paulino@icloud.com"),
-                comment: "Asi me pondre cuando sea Papa",
-                timestamp: Date.now()
-            }
-        ];
-        return comments;
+// Cargando depenencias
+var models = require('../models'),
+    async = require('async');
+
+module.exports = {
+    newest: function (callback) {
+        models.Comment.find({}, {}, {
+            limit: 5,
+            sort: { 'timestamp': -1 }
+        }, (err, comments) => {
+            // Funcion adjuntar imagen
+            var attachImage = (comment, next) => {
+                models.Image.findOne({
+                    _id: comment.image_id
+                }, (err, image) => {
+                    if (err) throw err;
+                    comment.image = image;
+                    next(err)
+                });
+            };
+            // Se aplica la funcion
+            // a cada una de 5 imagenes
+            // encontradas
+            async.each(comments, attachImage, (err) => {
+                if (err) throw err;
+                callback(err, comments);
+            });
+        });
     }
 };
