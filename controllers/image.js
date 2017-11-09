@@ -1,124 +1,192 @@
-//Cragando Dependencias
-var md5 = require('md5'),
-    fs = require('fs'),
+// Dependencias
+var fs = require('fs'),
     path = require('path'),
-    siderbar= require('../helpers/sidebar'),
-    likeCount = 12;
+    sidebar = require('../helpers/sidebar'),
+    Models = require('../models'),
+    md5 = require('md5');
+// Importando el Helper sidebar se repite una vez mas
+var sidebar = require("../helpers/sidebar");
 
 module.exports = {
-    //Action Methods
-    index: (req, res)=>{
-        //res.end(`Se accede al controlador image y se ejecuta el action method 
-        //"index" con el siguienteparametro -->${req.params.image_id}`);
+    // Action Methods
+    index: (req, res) => {
+        // Agregando el ViewModel
         var viewModel = {
-            image: {
-                    uniqueId: 1,
-                    title: "Sample Image 1",
-                    description: "Awesome Description",
-                    filename: "1.png",
-                    views : Math.floor(Math.random()*100),
-                    likes : Math.floor(Math.random()*50),
-                    timestamp: Date.now()
-            },
-            comments: [
-                {
-                    image_id: 1,
-                    email: 'cesar_paulino@icloud.com',
-                    name: "Cesar Paulino",
-                    gravatar: md5("cesar_paulino@icloud.com"),
-                    comment: "Asi me pondre cuando pase PCII",
-                    timestamp: Date.now()
-                },
-                {
-                    image_id: 1,
-                    email: 'cesar_paulino@icloud.com',
-                    name: "Cesar Paulino",
-                    gravatar: "eef5ce9485974e743540b05224686ba5",
-                    comment: "Asi me pondre cuando nos acepten el Proyecto de Mundo",
-                    timestamp: Date.now()
-                },
-                {
-                    image_id: 1,
-                    email: 'cesar_paulino@icloud.com',
-                    name: "Cesar Paulino",
-                    gravatar: md5("cesar_paulino@icloud.com"),
-                    comment: "Asi me pondre cuando sea Papa",
-                    timestamp: Date.now()
-                }
-            ]
+            image: {},
+            comments: []
         };
-       // res.render('image', viewModel);
-       //invocamos al helper de sidebar
-       //y posteriormente
-       //mandamos a renderizar la vista
-       siderbar(viewModel,(vm)=>{
-           res.render("image",vm);
-       });
-    },
-    create: (req, res)=>{
-        //Creando la funcion que salva la imagen en disco 
-        var saveImage = ()=>{
-            //Crear un dictionario de caracteres validos
-            var dictionary ="qwertyuiopasdfghjklñzxcvbnm1234567890";
-            //Ruta final de la imagen cargada
-            var imgUrl = "";
-            //armando el nombre tomando 6 caracteres de mi diccionario
-            for (var index = 0; index < 6; index++) {
-                imgUrl += dictionary.charAt(
-                    Math.floor(Math.random() * dictionary.length)
-                );
+        // Realizando la consulta
+        Models.Image.findOne({
+            filename: {
+                $regex: req.params.image_id
             }
-            //Obteniendo la ruta del archivo cargado por el usuario
-            var temPath = 
-                req.files[0].path;
-            //Averiguar la extencion del archivo cargado
-            var ext = 
-                path.extname(req.files[0].originalname).toLowerCase();
-            //Crear la ruta del destino final de la imagen cargada 
-            var targetPath = 
-                path.resolve('./public/upload/' + imgUrl + ext);
-            //Agregar un filtro de extenciones 
-            if(ext ==".png" || 
-            ext == ".jpg" || 
-            ext == ".gif" || 
-            ext ==".jpeg"){
-                //La imagen tiene extencion valida guardarla en la ruta final 
-                fs.rename(temPath, targetPath, (err)=>{
-                    //hubo error al cargar
-                    if(err){
-                        console.log("> Error al Guardar imagen....");
-                        throw err;
-                    }
-                    //No hubo error al cargar
-                    res.redirect(`/images/index/${imgUrl}`);
-                });
-            }else{
-                //Se detecta un archivo invalido
-                fs.unlink(temPath,()=>{
-                    if(err){
-                    console.log("> Error al borrar archivo invalido....");
-                    throw err;
-                }
-                //Si se borro el archivo invalido
-                res.status(500).json({
-                    error: "Solo se permite cargar archivo validos."
-                });
-            });
-        }
-    }
-    //Ejecutando la funcion de salvar la imagen
-    saveImage();
-},
-
-    like: (req, res)=>{
-        res.json({
-            //preincremento ++ al like
-            likes: ++likeCount
+        }, function (err, image) {
+            if (err) {
+                console.log("> Error en la consulta en image/index");
+                throw err;
+            }
+            if (image) {
+                // Incrementando el conteno de vistas en 1
+                image.views = image.views + 1;
+                // Cargando la imagen al viewModel
+                viewModel.image = image;
+                // Salvando el modelo
+                image.save();
+                // Cargando los comentarios
+                Models.Comment.find({
+                    image_id: image._id
+                }, {}, {
+                        sort: { 'timestamp': 1 }
+                    }, function (err, comments) {
+                        if (err) {
+                            console.log("> Error al consultar los comentarios image/index");
+                            throw err;
+                        }
+                        viewModel.comments = comments;
+                        // Ejecutando Helper Sidebar
+                        sidebar(viewModel, (viewModel) => {
+                            res.render('image', viewModel);
+                        });
+                    });
+            } else {
+                console.log('> No se encontro Imange');
+                console.log('> Redireccionando a Home');
+                res.redirect('/');
+            }
         });
     },
-    comment: (req, res)=>{
-        res.end(`Se accede al controlador Image y se ejecuta el accion method 
-        "comment" con el siguiente parametro -->${req.params.image_id}`);
+    create: (req, res) => {
+        // Buscar 
+        // Se implementa un CB
+        var saveImage = () => {
+            // Generando una lista de
+            // caracteres validos
+            var dictionary = "abcdefghijklmnopqertuvwxyz123456789";
+            var imgUrl = "";
+            // Creando un nombre de 6 caracteres
+            // tomados al azar
+            for (var i = 0; i < 6; i++) {
+                imgUrl += dictionary.charAt(
+                    Math.floor(Math.random() * dictionary.length));
+            }
+            // Realizando consulta para ver previa existencia
+            // de imgUrl en la base de datos
+            Models.Image.find({
+                filename: imgUrl
+            }, function (err, images) {
+                if (images.length > 0) {
+                    // Se llama recursivamente
+                    saveImage();
+                } else {
+                    // Cargando el archivo a los estaticos
+                    var temPath = req.files[0].path;
+                    // Extrayendo la extension del archivo cargado
+                    var ext =
+                        path.extname(
+                            req.files[0].originalname).toLowerCase();
+                    // Generando la ruta final de carga
+                    var targetPath =
+                        path.resolve('./public/upload/' + imgUrl + ext);
+                    console.log(`> Path de archivo cargado: ${targetPath}`);
+                    // Almacenando el archivo si este cumple con una
+                    // politica de extensiones permitidas
+                    if (ext === '.png' ||
+                        ext === '.jpg' ||
+                        ext === '.jpeg' ||
+                        ext === '.gif') {
+                        // Cambiando la ruta del archivo
+                        fs.rename(temPath, targetPath, (err) => {
+                            if (err) throw err;
+                            // Se Crea un modelo de la imagen Cargada
+                            var newImg = new Models.Image({
+                                title: req.body.title,
+                                filename: imgUrl + ext,
+                                description: req.body.description
+                            });
+                            // Y se salva la imagen en la BD
+                            newImg.save(function (err, image) {
+                                if (err) {
+                                    console.log("> Error al salvar img en bd");
+                                    throw err;
+                                }
+                                // Se redirecciona a la pagina del sitio
+                                res.redirect('/images/index/' + image.uniqueId);
+                            });
+                        });
+                    } else {
+                        fs.unlink(temPath, (err) => {
+                            if (err) {
+                                console.log(`> Error al borrar: ${temPath}`)
+                                throw err;
+                            };
+                            console.log(`> Se borra archivo: ${temPath}`);
+                            res.status(500).json(
+                                {
+                                    error: 'Solo archivos de imagenes permitidos'
+                                }
+                            );
+                        });
+                    }
+                }
+            });
+        };
+        saveImage();
+    },
+    like: (req, res) => {
+        // Se realiza al consulta de
+        // la imagen a la cula se le quiere
+        // incrementar su contador like
+        Models.Image.findOne({
+            filename: { $regex: req.params.image_id }
+        }, function (err, img) {
+            if (err || img == null) {
+                console.log(`> Error al buscar imagen: ${req.params.image_id}`);
+                throw err;
+            }
+            img.likes = img.likes + 1;
+            img.save(function (err) {
+                if (err) {
+                    console.log("> Error al salvar like");
+                    res.json(err);
+                } else {
+                    res.json({
+                        likes: img.likes
+                    });
+                }
+            });
+        });
+    },
+    comment: (req, res) => {
+        Models.Image.findOne({
+            filename: {
+                $regex: req.params.image_id
+            }
+        }, (err, image) => {
+            if (!err && image) {
+                var newComment = new Models.Comment(
+                    req.body
+                );
+                // Hasheando el correo
+                // Instalar dependencia md5
+                newComment.gravatar = md5(newComment.email);
+                newComment.image_id = image._id;
+                // Se Salvan las modificaciones
+                newComment.save((err, comment) => {
+                    if (err) {
+                        console.log(`> Error al salvar comentario`);
+                        throw err;
+                    }
+                    // Se recarga la pagina con el comentario
+                    // Se situa la vista con un hash en el comentario
+                    // recien creado (Fragments)
+                    res.redirect(
+                        '/images/index/' + image.uniqueId + '#' + comment._id);
+                });
+            } else {
+                // No se encontro la imagen que
+                // se quiere comentar
+                res.redirect('./');
+            }
+        });
     }
-
 };
