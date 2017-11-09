@@ -8,11 +8,9 @@
         <ul class="media-list">
             {{#each sidebar.comments}}
             <li class="media"> 
-                <a href="/images/{{image.uniqueId}}"
+                <a href="/images/index/{{image.uniqueId}}"
                 class="pull-left">
-                    {{!-- //src="/public/upload/{{image.filename}}" --}}
-                    <img  
-                    src="http://www.gravatar.com/avatar/{{gravatar}}"
+                    <img src="/public/upload/{{image.filename}}" 
                     alt="Imagen" 
                     class="media-object"
                     width="45" height="45">

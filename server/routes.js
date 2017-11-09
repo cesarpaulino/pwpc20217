@@ -6,7 +6,7 @@ var homeController = require('../controllers/home'),
     imageController = require('../controllers/image');
 
 module.exports = function(app){
-    //TODO:agregar rutas a la aplicacion
+    //TODO agregar rutas a la aplicacion
     //contenedor de rutas
     //router--> verbo---> que ejecutar
     //:image --> es un parametro que funciona para elegir el acction method 
