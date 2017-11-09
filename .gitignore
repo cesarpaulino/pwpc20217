@@ -1,12 +1,6 @@
-#ignorando los modulos de
-#backend
+# Modulos de Node
 node_modules
-#ignorando los
-#modulos del Fronted
-public/vendor#ignorando los modulos de
-#backend
-node_modules
-#ignorando los
-#modulos del Fronted
+# Modulos Bower
 public/vendor
-#ingorar los archivos del log
+# Ignora logs
+*.log
